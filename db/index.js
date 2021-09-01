@@ -8,13 +8,13 @@ const { Pool } = require("pg");
 //   port: process.env.PGPORT,
 // };
 
-// const proConfig = {
-//   connectionString: process.env.DATABASE_URL,
-// };
+const devConfig = `postgressql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
+
+const proConfig = process.env.DATABASE_URL;
 
 const pool = new Pool({
-  // process.env.NODE_ENV === "production" ? proConfig : devConfig,
-  connectionString: process.env.DATABASE_URL,
+  connectionString:
+    process.env.NODE_ENV === "production" ? proConfig : devConfig,
   ssl: {
     rejectUnauthorized: false,
   },
