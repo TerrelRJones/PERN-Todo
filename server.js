@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { urlencoded, json } = require("express");
+const { urlencoded, json, static } = require("express");
+const path = require("path");
 const db = require("./db");
 require("dotenv").config();
 
@@ -12,6 +13,9 @@ app.use(cors());
 app.use(json());
 app.use(morgan("dev"));
 app.use(urlencoded({ extended: true }));
+
+// Serve static files from Client
+app.use(static(path.join(__dirname, "client/build")));
 
 //ROUTES
 
@@ -82,7 +86,11 @@ app.delete("/todos/:id", async (req, res) => {
   }
 });
 
+// Catch all non-existent routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}`);
 });
-``;
