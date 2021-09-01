@@ -1,12 +1,5 @@
 const { Pool } = require("pg");
-
-// const devConfig = {
-//   user: process.env.PGUSER,
-//   host: process.env.PGHOST,
-//   password: process.env.PGPASSWORD,
-//   databse: process.env.PGDATABASE,
-//   port: process.env.PGPORT,
-// };
+require(".env").config();
 
 const devConfig = `postgressql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
 
