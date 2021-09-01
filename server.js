@@ -14,8 +14,12 @@ app.use(json());
 app.use(morgan("dev"));
 app.use(urlencoded({ extended: true }));
 
-// Serve static files from Client
 app.use(static(path.join(__dirname, "client/build")));
+
+// Serve static files from Client
+if (process.env.NODE_ENV === "production") {
+  app.use(static(path.join(__dirname, "client/build")));
+}
 
 //ROUTES
 
